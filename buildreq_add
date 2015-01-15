@@ -1,0 +1,15 @@
+# This file contains additional build requirements that did not get
+# picked up automatically. One name per line, no whitespace.
+sure-python
+python-mock
+nose-python
+coverage-python
+urllib3-python
+tornado-python
+requests-python
+httplib2
+six-python
+six
+certifi-python
+backports.ssl_match_hostname
+
