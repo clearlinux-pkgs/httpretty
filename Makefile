@@ -1,4 +1,5 @@
 PKG_NAME := httpretty
-URL := https://pypi.python.org/packages/source/h/httpretty/httpretty-0.8.10.tar.gz
+URL := http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
+ARCHIVES :=
 
 include ../common/Makefile.common
