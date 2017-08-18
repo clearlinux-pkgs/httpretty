@@ -4,7 +4,7 @@
 #
 Name     : httpretty
 Version  : 0.8.14
-Release  : 23
+Release  : 24
 URL      : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Source0  : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Summary  : HTTP client mock for Python
@@ -23,6 +23,7 @@ BuildRequires : py-python
 BuildRequires : pytest
 BuildRequires : python-dev
 BuildRequires : python-mock
+BuildRequires : python3-dev
 BuildRequires : requests-python
 BuildRequires : setuptools
 BuildRequires : six
@@ -35,10 +36,7 @@ BuildRequires : virtualenv
 Patch1: test.patch
 
 %description
-HTTPretty 0.8.3
 ===============
-|https://s3-us-west-2.amazonaws.com/s.cdpn.io/18885/httpretty-logo_1.svg|
-|tip for next commit| |Build Status| `ChangeLog <NEWS.md>`__
 
 %package python
 Summary: python components for the httpretty package.
@@ -53,21 +51,32 @@ python components for the httpretty package.
 %patch1 -p1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
+export SOURCE_DATE_EPOCH=1503093418
 python2 setup.py build -b py2
+python3 setup.py build -b py3
 
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test || :
+PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test || :
 %install
+export SOURCE_DATE_EPOCH=1503093418
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+/usr/lib/python2*/*
+/usr/lib/python3*/*
