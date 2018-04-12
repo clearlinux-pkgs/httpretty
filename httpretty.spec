@@ -4,13 +4,12 @@
 #
 Name     : httpretty
 Version  : 0.8.14
-Release  : 31
+Release  : 32
 URL      : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Source0  : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Summary  : HTTP client mock for Python
 Group    : Development/Tools
 License  : MIT
-Requires: httpretty-legacypython
 Requires: httpretty-python3
 Requires: httpretty-python
 BuildRequires : backports.ssl_match_hostname
@@ -40,19 +39,9 @@ Patch1: test.patch
 %description
 ===============
 
-%package legacypython
-Summary: legacypython components for the httpretty package.
-Group: Default
-Requires: python-core
-
-%description legacypython
-legacypython components for the httpretty package.
-
-
 %package python
 Summary: python components for the httpretty package.
 Group: Default
-Requires: httpretty-legacypython
 Requires: httpretty-python3
 
 %description python
@@ -77,8 +66,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1507155107
-python2 setup.py build -b py2
+export SOURCE_DATE_EPOCH=1523561950
 python3 setup.py build -b py3
 
 %check
@@ -87,20 +75,14 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test || :
 %install
-export SOURCE_DATE_EPOCH=1507155107
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
-
-%files legacypython
-%defattr(-,root,root,-)
-/usr/lib/python2*/*
 
 %files python
 %defattr(-,root,root,-)
