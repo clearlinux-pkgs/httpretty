@@ -4,7 +4,7 @@
 #
 Name     : httpretty
 Version  : 0.8.14
-Release  : 37
+Release  : 38
 URL      : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Source0  : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Summary  : HTTP client mock for Python
@@ -13,7 +13,6 @@ License  : MIT
 Requires: httpretty-python3
 Requires: httpretty-license
 Requires: httpretty-python
-BuildRequires : backports.ssl_match_hostname
 BuildRequires : certifi-python
 BuildRequires : coverage-python
 BuildRequires : httplib2
@@ -74,14 +73,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1530327182
+export SOURCE_DATE_EPOCH=1530330703
 python3 setup.py build -b py3
 
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python3.7/site-packages python3 setup.py test || :
+PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test || :
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/httpretty
