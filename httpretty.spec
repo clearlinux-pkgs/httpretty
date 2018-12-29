@@ -4,7 +4,7 @@
 #
 Name     : httpretty
 Version  : 0.8.14
-Release  : 42
+Release  : 43
 URL      : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Source0  : http://pypi.debian.net/httpretty/httpretty-0.8.14.tar.gz
 Summary  : HTTP client mock for Python
